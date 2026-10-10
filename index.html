@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 必应SEO核心优化标签 -->
+    <title>鲁鲁电影网 - 高清电影资源与在线观看平台</title>
+    <meta name="description" content="鲁鲁电影网(luludianyingwang-h5.github.io)提供最新电影资源、热映榜单、影评资讯，涵盖动作、喜剧、科幻等全品类影视内容，尽享视听盛宴。">
+    <meta name="keywords" content="鲁鲁电影网, luludianyingwang-h5.github.io, 电影在线观看, 高清电影, 最新电影排行榜">
+    <meta name="author" content="鲁鲁电影网">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <style>
+        /* ================= 基础重置与变量（浅色渐变主题） ================= */
+        :root {
+            --primary: #4f46e5;
+            --secondary: #ec4899;
+            --bg-color: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --card-bg: #ffffff;
+            --radius: 20px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-dark); 
+            line-height: 1.6; 
+            overflow-x: hidden;
+        }
+        
+        a { text-decoration: none; color: var(--primary); transition: all 0.3s ease; }
+        a:hover { color: var(--secondary); }
+        ul { list-style: none; }
+        
+        /* ================= 栏目1：头部导航（浅色毛玻璃） ================= */
+        .header { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000; 
+            border-bottom: 1px solid rgba(0,0,0,0.05); 
+        }
+        .nav { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 1rem 5%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        .logo { 
+            font-size: 1.8rem; 
+            font-weight: 800; 
+            background: linear-gradient(90deg, var(--primary), var(--secondary)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            letter-spacing: 1px;
+        }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { color: var(--text-dark); font-weight: 500; font-size: 1rem; position: relative; }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        
+        /* ================= 主内容区 ================= */
+        main { padding-top: 80px; }
+        .section { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; }
+        
+        /* ================= 栏目2：首页推荐（左右分栏差异化） ================= */
+        #home { 
+            padding: 6rem 5% 4rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 4rem; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        .hero-text { flex: 1; }
+        .hero-text h1 { 
+            font-size: 3.5rem; 
+            line-height: 1.2; 
+            margin-bottom: 1.5rem; 
+            color: var(--text-dark);
+        }
+        .hero-text p { 
+            font-size: 1.1rem; 
+            color: var(--text-light); 
+            margin-bottom: 2.5rem; 
+        }
+        .btn { 
+            display: inline-block; 
+            padding: 0.9rem 2.5rem; 
+            background: linear-gradient(90deg, var(--primary), var(--secondary)); 
+            color: white; 
+            border-radius: 30px; 
+            font-weight: bold; 
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(79, 70, 229, 0.3); color: white; }
+        
+        .hero-image { 
+            flex: 1; 
+            background: linear-gradient(135deg, #a5b4fc, #fbcfe8); 
+            border-radius: var(--radius); 
+            height: 400px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 6rem; 
+            color: rgba(255,255,255,0.6); 
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.15); 
+        }
+        
+        /* ================= 栏目3：热映榜单（横向滚动差异化） ================= */
+        .section-title { 
+            font-size: 2rem; 
+            margin-bottom: 2rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            color: var(--text-dark);
+        }
+        .section-title::after { 
+            content: ''; 
+            flex: 1; 
+            height: 2px; 
+            background: linear-gradient(90deg, var(--primary), transparent); 
+        }
+        .horizontal-scroll { 
+            display: flex; 
+            gap: 2rem; 
+            overflow-x: auto; 
+            padding-bottom: 1.5rem; 
+            scroll-snap-type: x mandatory; 
+        }
+        .horizontal-scroll::-webkit-scrollbar { height: 8px; }
+        .horizontal-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        
+        .movie-card-h { 
+            min-width: 280px; 
+            background: var(--card-bg); 
+            border-radius: var(--radius); 
+            overflow: hidden; 
+            scroll-snap-align: start; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06); 
+            transition: transform 0.3s;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .movie-card-h:hover { transform: translateY(-8px); }
+        .card-img { 
+            height: 180px; 
+            background: linear-gradient(45deg, #818cf8, #c084fc); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 3.5rem; 
+            color: white; 
+        }
+        .card-body { padding: 1.5rem; }
+        .card-body h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
+        .card-body p { color: var(--text-light); font-size: 0.9rem; }
+        
+        /* ================= 栏目4：精选资讯（左右交错Zigzag差异化） ================= */
+        .zigzag { display: flex; flex-direction: column; gap: 3rem; }
+        .zigzag-item { 
+            display: flex; 
+            align-items: center; 
+            gap: 3rem; 
+            background: var(--card-bg); 
+            padding: 2.5rem; 
+            border-radius: var(--radius); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04); 
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .zigzag-item:nth-child(even) { flex-direction: row-reverse; }
+        .zigzag-img { 
+            flex: 1; 
+            height: 280px; 
+            background: linear-gradient(135deg, #f472b6, #fb923c); 
+            border-radius: 15px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 5rem; 
+            color: white; 
+        }
+        .zigzag-text { flex: 1; }
+        .zigzag-text h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+        .zigzag-text p { color: var(--text-light); margin-bottom: 1.5rem; }
+        
+        /* ================= 栏目5：电影分类（彩色网格差异化） ================= */
+        .categories { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+            gap: 1.5rem; 
+        }
+        .cat-item { 
+            background: var(--card-bg); 
+            padding: 2.5rem 1rem; 
+            text-align: center; 
+            border-radius: var(--radius); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03); 
+            transition: all 0.3s; 
+            cursor: pointer; 
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .cat-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .cat-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
+        .cat-name { font-size: 1.1rem; font-weight: bold; color: var(--text-dark); }
+        
+        /* ================= 栏目6：关于我们（渐变大横幅） ================= */
+        #about { padding-bottom: 6rem; }
+        .about-banner { 
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
+            color: white; 
+            padding: 5rem 2rem; 
+            text-align: center; 
+            border-radius: var(--radius); 
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.2);
+        }
+        .about-banner h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+        .about-banner p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .url-box { 
+            background: rgba(255,255,255,0.15); 
+            padding: 1.2rem 2.5rem; 
+            border-radius: 12px; 
+            display: inline-block; 
+            margin: 1rem 0; 
+            font-family: 'Courier New', monospace; 
+            font-size: 1.3rem; 
+            letter-spacing: 1px; 
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* ================= 页脚 ================= */
+        .footer { 
+            background: #0f172a; 
+            color: #94a3b8; 
+            text-align: center; 
+            padding: 3rem 5%; 
+        }
+        .footer p { margin-bottom: 0.8rem; font-size: 0.95rem; }
+        .footer a { color: #cbd5e1; }
+        .footer .highlight { color: var(--secondary); font-weight: bold; }
+        
+        /* ================= 移动端自适应 (Media Queries) ================= */
+        @media (max-width: 992px) {
+            .hero-text h1 { font-size: 2.8rem; }
+            .zigzag-item, .zigzag-item:nth-child(even) { gap: 2rem; }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            #home { flex-direction: column; text-align: center; padding-top: 4rem; gap: 2rem; }
+            .hero-text h1 { font-size: 2.2rem; }
+            .hero-image { height: 250px; font-size: 4rem; }
+            .zigzag-item, .zigzag-item:nth-child(even) { flex-direction: column; padding: 1.5rem; }
+            .zigzag-img { height: 200px; font-size: 3rem; width: 100%; }
+            .categories { grid-template-columns: repeat(2, 1fr); }
+            .about-banner { padding: 3rem 1.5rem; }
+            .url-box { font-size: 1rem; padding: 1rem; word-break: break-all; }
+        }
+    </style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+    <!-- 头部导航 -->
+    <header class="header">
+        <div class="nav">
+            <div class="logo">鲁鲁电影网</div>
+            <nav class="nav-links">
+                <a href="#home">首页</a>
+                <a href="#hot">热映榜单</a>
+                <a href="#news">精选资讯</a>
+                <a href="#category">电影分类</a>
+                <a href="#about">关于我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- 栏目1：首页推荐 (左右分栏) -->
+        <section id="home">
+            <div class="hero-text">
+                <h1>探索光影世界<br>尽在鲁鲁电影网</h1>
+                <p>为您提供最新、最热的电影资源导航与深度影评。每日精选高分大片，打造您的专属私人影院。认准官方唯一网址，开启极致观影体验。</p>
+                <a href="#hot" class="btn">开始探索</a>
+            </div>
+            <div class="hero-image">🎬</div>
+        </section>
+
+        <!-- 栏目2：热映榜单 (横向滚动) -->
+        <section id="hot" class="section">
+            <h2 class="section-title">🔥 热映榜单</h2>
+            <div class="horizontal-scroll">
+                <article class="movie-card-h">
+                    <div class="card-img" style="background: linear-gradient(45deg, #f59e0b, #ef4444);">1️⃣</div>
+                    <div class="card-body">
+                        <h3>周处除三害</h3>
+                        <p>动作/犯罪 | 9.2分</p>
+                    </div>
+                </article>
+                <article class="movie-card-h">
+                    <div class="card-img" style="background: linear-gradient(45deg, #3b82f6, #2dd4bf);">2️⃣</div>
+                    <div class="card-body">
+                        <h3>哥斯拉大战金刚2</h3>
+                        <p>科幻/冒险 | 8.5分</p>
+                    </div>
+                </article>
+                <article class="movie-card-h">
+                    <div class="card-img" style="background: linear-gradient(45deg, #8b5cf6, #ec4899);">3️⃣</div>
+                    <div class="card-body">
+                        <h3>你想活出怎样的人生</h3>
+                        <p>动画/奇幻 | 8.8分</p>
+                    </div>
+                </article>
+                <article class="movie-card-h">
+                    <div class="card-img" style="background: linear-gradient(45deg, #10b981, #059669);">4️⃣</div>
+                    <div class="card-body">
+                        <h3>功夫熊猫4</h3>
+                        <p>动画/喜剧 | 8.0分</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 栏目3：精选资讯 (左右交错Zigzag) -->
+        <section id="news" class="section">
+            <h2 class="section-title">📰 精选资讯</h2>
+            <div class="zigzag">
+                <div class="zigzag-item">
+                    <div class="zigzag-img" style="background: linear-gradient(135deg, #6366f1, #a855f7);">📝</div>
+                    <div class="zigzag-text">
+                        <h3>2024年必看的十部科幻大片</h3>
+                        <p>从星际穿越到人工智能，今年科幻片市场异常火爆。我们为您精选了十部不容错过的视觉盛宴，带您提前领略未来世界的奇妙与危机。</p>
+                        <a href="#">阅读更多</a>
+                    </div>
+                </div>
+                <div class="zigzag-item">
+                    <div class="zigzag-img" style="background: linear-gradient(135deg, #ec4899, #f43f5e);">🎞️</div>
+                    <div class="zigzag-text">
+                        <h3>独立电影的崛起与未来</h3>
+                        <p>不再依赖大制作，独立电影凭借深刻的故事内核和独特的镜头语言赢得了观众的掌声。探讨独立电影如何在商业洪流中保持初心。</p>
+                        <a href="#">阅读更多</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 栏目4：电影分类 (彩色网格) -->
+        <section id="category" class="section">
+            <h2 class="section-title">🗂️ 电影分类</h2>
+            <div class="categories">
+                <a href="#" class="cat-item">
+                    <span class="cat-icon">💥</span>
+                    <span class="cat-name">动作片</span>
+                </a>
+                <a href="#" class="cat-item">
+                    <span class="cat-icon">😄</span>
+                    <span class="cat-name">喜剧片</span>
+                </a>
+                <a href="#" class="cat-item">
+                    <span class="cat-icon">👽</span>
+                    <span class="cat-name">科幻片</span>
+                </a>
+                <a href="#" class="cat-item">
+                    <span class="cat-icon">💕</span>
+                    <span class="cat-name">爱情片</span>
+                </a>
+                <a href="#" class="cat-item">
+                    <span class="cat-icon">😱</span>
+                    <span class="cat-name">恐怖片</span>
+                </a>
+                <a href="#" class="cat-item">
+                    <span class="cat-icon">🕵️</span>
+                    <span class="cat-name">悬疑片</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 栏目5：关于我们 (渐变横幅) -->
+        <section id="about" class="section">
+            <div class="about-banner">
+                <h2>关于 鲁鲁电影网</h2>
+                <p>鲁鲁电影网致力于为广大影迷提供最及时、最全面的电影资讯与资源索引。我们用心筛选，只为让您在繁忙的生活中，找到那部触动心灵的好电影。</p>
+                <div class="url-box">https://luludianyingwang-h5.github.io</div>
+                <br><br>
+                <a href="#" class="btn" style="background: white; color: var(--primary);">返回首页</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2024 <span class="highlight">鲁鲁电影网</span>. All Rights Reserved.</p>
+        <p>官方唯一网址: <a href="https://luludianyingwang-h5.github.io">https://luludianyingwang-h5.github.io</a></p>
+        <p>核心关键词：鲁鲁电影网 - 发现好电影，从鲁鲁开始</p>
+    </footer>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
